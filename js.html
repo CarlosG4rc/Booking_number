@@ -1,0 +1,29 @@
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+
+        document.addEventListener('DOMContentLoaded',function(){
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+    });
+
+    document.getElementById('revisar').addEventListener('click',revisar);
+    
+    function revisar(){
+        var matricula = document.getElementById('matricula').value;
+        google.script.run.withSuccessHandler(encontrado).revisarMatricula(matricula);
+    }
+    function encontrado(status){
+        document.getElementById('estado').value = status;
+        console.log(status);
+        M.updateTextFields();
+        if(status == "Felicidades. Eres parte de la comunidad Possenti"){
+            document.getElementById('form').disabled = false;
+        }
+        else {
+            document.getElementById('form').disabled = true;
+        }
+    }
+</script>
